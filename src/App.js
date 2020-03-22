@@ -7,16 +7,18 @@ import LoadingBar from 'react-redux-loading'
 import { 
   Container,
   Toolbar,
-  Grid,
+  Paper,
   AppBar,
   Avatar,
-  Button
+  Button,
+  Grid
   } from '@material-ui/core'
 import Nav from './components/Nav'
 import Login from './components/Login'
 import Home from './components/Home'
 import NewQuestion from './components/NewQuestion'
 import LeaderBoard from './components/LeaderBoard'
+import QuestionDetail from './components/QuestionDetail'
 import {
   BrowserRouter as Router,
   Switch,
@@ -31,7 +33,6 @@ class App extends Component {
     e.preventDefault()
     const { dispatch } = this.props
     dispatch(setAuthedUser(null))
-
   }
   render() {
     const {authedUser, users } = this.props
@@ -40,35 +41,36 @@ class App extends Component {
         <Router>
           <AppBar position="static">
             <Toolbar>
-              <Nav/>
+              <Grid container direction="row" justify="flex-start" alignItems="center">
+                <Nav/>
+              </Grid>
               {
                 authedUser && (
-                  <div>
-                    <Avatar src={users[authedUser].avatarURL}/>
-                    {users[authedUser].name}
-                    <Button onClick={this.handleLogout}>Logout</Button>
-                  </div>
+                  <Grid container direction="row" justify="flex-end" alignItems="center">
+                    <Grid>
+                      <Avatar src={users[authedUser].avatarURL}/>
+                    </Grid>
+                    <Grid>
+                      {users[authedUser].name}
+                    </Grid>
+                    <Grid>
+                      <Button color="inherit" onClick={this.handleLogout}>Logout</Button>
+                    </Grid>
+                  </Grid>
                 )
               }
             </Toolbar>          
           </AppBar>
           <LoadingBar/>
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="flex-start"
-            className="content"
-          >
-            <Grid container item xs={6}>
-              <Switch>
-                <Route path='/login' component={Login}></Route>
-                <Route path='/leaderboard' component={LeaderBoard}></Route>
-                <Route path='/add' component={NewQuestion}></Route>
-                <Route path='/' component={Home}></Route>
-              </Switch>     
-            </Grid>
-          </Grid>
+          <Paper className='content'>
+            <Switch>
+              <Route path='/login' component={Login}></Route>
+              <Route path='/leaderboard' component={LeaderBoard}></Route>
+              <Route path='/add' component={NewQuestion}></Route>
+              <Route path='/questions/:question_id' component={QuestionDetail}></Route>
+              <Route path='/' component={Home}></Route>
+            </Switch>     
+          </Paper>
         </Router>
       </Container>
     )
