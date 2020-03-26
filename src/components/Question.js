@@ -1,8 +1,6 @@
 import React, { Fragment, Component}  from 'react'
 import { ListItem, ListItemAvatar, ListItemText, Avatar, Typography, Divider } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
-
-
 class Question extends Component {
 
     handleClick = (e) => {

@@ -6,8 +6,6 @@ class Home extends Component {
 
     state = {
         value: 0,
-        unanswered: [],
-        answered: []
     }
     handleChange = (e, newValue) => {
         e.preventDefault()
@@ -24,29 +22,41 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        const { questions } = this.props
+        
+    }
+
+    categorizeQuestions() {
+        const { questions, users, authedUser } = this.props
         let unanswered = []
         let answered = []
-        if (questions) {
+        if (questions && authedUser) {
+            const user = users[authedUser]
+            const answeredIds = Object.keys(user.answers)
             const questionIds = Object.keys(questions)
             const questionList = questionIds.map(id => questions[id])
             questionList.forEach(question => {
-                if (question.optionOne.votes.length > 0 || question.optionTwo.votes.length > 0) {
+                let found = false
+                answeredIds.forEach(id => {
+                    if (question.id === id) {
+                        found = true
+                    }
+                }) 
+                if (found) {
                     answered.push(question)
                 } else {
                     unanswered.push(question)
                 }
             })
         }
-        this.setState({
-            unanswered: unanswered,
-            answered: answered
-        })
+        unanswered.sort((a, b) => b.timestamp - a.timestamp)
+        answered.sort((a, b) => b.timestamp - a.timestamp)
+        return { unanswered, answered }
     }
 
     render() {
         const { users } = this.props
-        const { value, unanswered, answered } = this.state
+        const { value } = this.state
+        const { unanswered, answered } = this.categorizeQuestions()
         return (
             <Box>
                 <Tabs
@@ -84,10 +94,11 @@ function TabPanel(props) {
     );
   }
 
-function mapStateToProps ({ questions, users }) {
+function mapStateToProps ({ questions, users, authedUser }) {
     return {
       questions,
-      users
+      users,
+      authedUser
     }
   }
 
