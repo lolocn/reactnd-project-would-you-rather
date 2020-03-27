@@ -75,6 +75,9 @@ class QuestionDetail extends Component {
         if (!authedUser) {
             return <Redirect to='/login' />
         }
+        if (!question) {
+            return <Redirect to='/404' />
+        }
         if (!isAnswerd) {
             return (
                 <Card>

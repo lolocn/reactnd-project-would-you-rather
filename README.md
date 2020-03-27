@@ -8,7 +8,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 The project is build on UI framework [Material UI](https://material-ui.com/)
 
-
 The project follows the [rubric](https://review.udacity.com/#!/rubrics/1567/view) requirements
 
 Starter code from https://github.com/udacity/reactnd-project-would-you-rather-starter consist of a `_DATA.js` file

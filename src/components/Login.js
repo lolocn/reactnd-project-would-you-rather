@@ -24,7 +24,7 @@ class Login extends Component {
         if (user) {
             const { dispatch, history } = this.props
             dispatch(setAuthedUser(user))
-            history.push('/')
+            history.goBack()
         } else {
             alert("Please select a user to login")
         }
@@ -33,7 +33,6 @@ class Login extends Component {
     render() {
         const { user } = this.state
         const { userList } = this.props
-        // console.log(userList)
         return (
             <Box color="text.primary">
                 <h1>Welcome to Would You Rather App!</h1>

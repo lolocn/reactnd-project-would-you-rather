@@ -17,6 +17,7 @@ import NewQuestion from './components/NewQuestion'
 import LeaderBoard from './components/LeaderBoard'
 import QuestionDetail from './components/QuestionDetail'
 import User from './components/User'
+import NotFound from './components/NotFound'
 import {
   BrowserRouter as Router,
   Switch,
@@ -47,6 +48,7 @@ class App extends Component {
               <Route path='/add' component={NewQuestion}></Route>
               <Route path='/questions/:question_id' component={QuestionDetail}></Route>
               <Route path='/' component={Home}></Route>
+              <Route path='/404' component={NotFound}></Route>
             </Switch>     
           </Paper>
         </Router>
