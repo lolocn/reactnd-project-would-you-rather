@@ -43,12 +43,12 @@ class App extends Component {
           <LoadingBar/>
           <Paper className='content'>
             <Switch>
+              <Route path='/404' component={NotFound}></Route>
               <Route path='/login' component={Login}></Route>
               <Route path='/leaderboard' component={LeaderBoard}></Route>
               <Route path='/add' component={NewQuestion}></Route>
               <Route path='/questions/:question_id' component={QuestionDetail}></Route>
-              <Route path='/' component={Home}></Route>
-              <Route path='/404' component={NotFound}></Route>
+              <Route path='/' component={Home} exact></Route>
             </Switch>     
           </Paper>
         </Router>
